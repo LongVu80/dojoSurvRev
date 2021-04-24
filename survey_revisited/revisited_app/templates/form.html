@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dojo Survey</title>
+    {% load static %}
+    <link rel='stylesheet' href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Dojo Survey</h1>
+    <p>Please fill out the form</p>
+    <form action="/process" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Your Full Name:</label>
+            <input name="name" id="name" type="text" class="form-control">
+        </div>
+        
+        <div class="form-group">
+            <label for="locations">Dojo Location:</label>
+            <select id="locations" name="locations" class="form-control">
+                {% for loc in locations %}
+                <option value="{{ loc }}">{{ loc }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="languages">Favorite Language:</label><br>
+            {% for lang in languages %}
+            <input type="radio" id="languages" name="languages" class="form-control" value="{{lang}}">
+            <label for="languages">{{lang}}</label><br>
+            {% endfor %}
+        </div>  
+        <div class="form-group">Languages Flurence: <br>
+            {% for fluence in fluence %}
+            <input type="checkbox" id="fluence" name="fluence" class="form-control" value="{{fluence}}">
+            <label for="fluence">{{fluence}}</label><br>
+            {% endfor %}
+        </div>
+        <p>Leave a Comment: <textarea id="comment" name="comment"></textarea></p>
+        <p><button class="center" type="submit">Submit</button></p>
+    </form>
+</body>
+</html>
